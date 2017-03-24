@@ -13,20 +13,21 @@
 		<ul>
 			<li><button id="reset" class="js-show-hide visibility-hidden">Reset</button></li>
 			<li><button id="start" class="play"><i class="fa fa-play"></i></button></li>
-			<li><button id="lap" class="js-show-hide visibility-hidden">Lap</button></li>
+			<li><button id="share" class="js-show-hide js-lap-share visibility-hidden">Share</button></li>
 		</ul>
 	</nav>
 
-	<div id="timer">
-		<p>
-			<span class="seconds">0</span><span class="miliseconds">00</span>
-		</p>
-	</div>
+	<div class="center-wrapper">
+		<div id="timer">
+			<p>
+				<span class="seconds">0</span><span class="miliseconds">00</span>
+			</p>
+		</div>	
 
-	<div id="clock">
-		<div class="hand miliseconds"></div>
-		<div class="hand seconds"></div>
-		<div class="hand minutes"></div>
+		<div id="lap-list">
+			<ul>
+			</ul>
+		</div>
 	</div>
 
 	<script src="js/utilities.js"></script>
