@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Stopwatch</title>
+	<link href="css/style.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet">
+</head>
+<body>
+
+	<nav>
+		<ul>
+			<li><button id="reset" class="visibility-hidden">Reset</button></li>
+			<li><button id="start" class="play"><i class="fa fa-play"></i></button></li>
+			<li><button id="lap" class="visibility-hidden">Lap</button></li>
+		</ul>
+	</nav>
+
+	<div id="timer">
+		<p>
+			<span class="seconds">0</span><span class="miliseconds">00</span>
+		</p>
+	</div>
+
+	<div id="clock">
+		<div class="hand miliseconds"></div>
+		<div class="hand seconds"></div>
+		<div class="hand minutes"></div>
+	</div>
+
+	<script src="js/utilities.js"></script>
+	<script src="js/script.js"></script>
+</body>
+</html>
