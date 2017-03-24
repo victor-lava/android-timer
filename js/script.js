@@ -22,25 +22,60 @@ var clock = {
 //nuresetinam chronometrą
 function reset(){
 
+	var timer = document.querySelector('#timer'),
+		pause = document.querySelector('#pause');
+
+
 	clock.time.minutes = 0;
 	clock.time.seconds = 0;
 	clock.time.miliseconds = 0;
 	
-	document.querySelector('#timer .miliseconds').innerHTML = time.miliseconds;
-	document.querySelector('#timer .seconds').innerHTML = time.seconds;
+	pause.id = 'start';
+	window.clearInterval(state);
+	pause.querySelector('i').classList.toggle('fa-play');
+	pause.querySelector('i').classList.toggle('fa-pause');
 
+	timer.querySelector('.seconds').innerHTML = '0';
+	timer.querySelector('.miliseconds').innerHTML = '00';
+	showHide(false); 
+
+
+
+}
+
+function showHide(status){
+	var hiddenItems = document.querySelectorAll('nav ul li .js-show-hide'),
+		index;
+
+
+	for(index = 0; index < hiddenItems.length; index++){
+		if(status == true){
+			//alert('true');
+			hiddenItems[index].classList.remove('visibility-hidden');
+		}
+		else if(status == false){
+			//alert('false');
+			hiddenItems[index].classList.add('visibility-hidden');
+		} 
+	}
 }
 
 function start(){
 
+	var timer = document.querySelector('#timer p');
 	if(this.id == 'start'){
 		//jei chronometras nepaleistas, jį turime paleisti
 		state = window.setInterval(doChrono, 10); //išsiaškinti, kodėl kas 10
 		this.id = 'pause';
+		timer.classList.remove('blinker');
+		showHide(true);
+
+
 	}
 	else{
 		window.clearInterval(state);
 		this.id = 'start';
+		timer.classList.add('blinker');
 		//jei chronometras paleistas, jį turime sustabdyti
 	}
 
