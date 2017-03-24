@@ -18,6 +18,7 @@ var clock = {
 		}
 	},
 	laps = new Array(),
+	lapState,
 	state;
 
 //loaderiui imesti https://projects.lukehaas.me/css-loaders/
@@ -49,12 +50,12 @@ function reset(){
 
 }
 
-function addLine(){
+function addLine(number, startTime, endTime){
 	var list = document.querySelector('#lap-list ul'),
 		newList = document.createElement('li');
 
 		newList.innerHTML = "<p class='slide-in'></p>";
-		newList.querySelector('p').innerHTML = '<span class="lap-number">#3</span><span class="first-lap">0 01.99</span><span class="second-lap">0 08.36</span>';
+		newList.querySelector('p').innerHTML = '<span class="lap-number">#' + number + '</span><span class="first-lap">' + startTime + '</span><span class="second-lap">' + endTime + '</span>';
 
 		list.prepend(newList);
 }
@@ -65,43 +66,52 @@ function startLap(){
 	//this mean we started the lap!
 	//if(lapCounter != 0){
 
-	//}
+	//
 
-		addLine();
+	/* reset the lap values, because we starting the lap from the zero every time */
+
 
 	var lap = new Object(),
 		start = new Object(),
 		end = new Object(),
-		chronoState;
+		startTime,
+		endTime;
 
-		//clock.lap.minutes = 0;
-		//clock.lap.seconds = 0;
-		//clock.lap.miliseconds = 0;
+		clearInterval(lapState);
+		lapState = setInterval(doLapChrono, 10); //išsiaškinti, kodėl kas 10
 
-		window.clearInterval(chronoState);
-		chronoState = window.setInterval(doLapChrono, 10); //išsiaškinti, kodėl kas 10
+		console.log(clock.lap);
+
+		lap.minutes = clock.lap.minutes;
+		lap.seconds = clock.lap.seconds;
+		lap.miliseconds = clock.lap.miliseconds;
 
 		end.minutes = clock.time.minutes;
 		end.seconds = clock.time.seconds;
 		end.miliseconds = clock.time.miliseconds;
 
-	lap.start = clock.lap;
+	lap.start = lap;
 	lap.end = end;
 
 	laps.push(lap);
 
 	console.log(laps);
 
-	console.log('start:' + lap.start.minutes + ' ' + lap.start.seconds + ' ' + lap.start.miliseconds);
-	console.log('end:' + lap.end.minutes + ' ' + lap.end.seconds + ' ' + lap.end.miliseconds);
+	startTime = lap.start.minutes + ' ' + formatMiliseconds(lap.start.seconds) + '.' + lap.start.miliseconds;
+	endTime = lap.end.minutes + ' ' + formatMiliseconds(lap.end.seconds) + '.' + lap.end.miliseconds;
+
+	addLine(clock.lapCounter, startTime, endTime);
+
+		clock.lap.minutes = 0;
+	clock.lap.seconds = 0;
+	clock.lap.miliseconds = 0;
 
 	clock.lapCounter++;
 }
 
 function doLapChrono(){
 
-	var time = clock.lap,
-		miliseconds = null;
+	var time = clock.lap;
 
 	time.miliseconds++;
 
@@ -115,6 +125,7 @@ function doLapChrono(){
 		time.seconds = 0;
 		time.minutes++;
 	}
+
 
 	clock.lap.minutes = time.minutes;
 	clock.lap.seconds = time.seconds;
@@ -219,6 +230,14 @@ function doChrono(){
 	
 	//console.log(time.seconds);
 	//console.log(generateDegrees(time.miliseconds, 100));
+}
+
+function formatMiliseconds(miliseconds){
+	if(miliseconds < 9){
+		miliseconds = '0' + miliseconds;
+	}
+
+	return miliseconds;
 }
 
 function generateDegrees(time, maxTime){
