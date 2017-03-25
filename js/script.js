@@ -32,7 +32,8 @@ var clock = {
 function reset(){
 
 	var timer = document.querySelector('#timer'),
-		pause = document.querySelector('#pause');
+		pause = document.querySelector('#pause'),
+		lapList = document.querySelectorAll('#lap-list ul li');
 
 
 	clock.time.minutes = 0;
@@ -48,6 +49,16 @@ function reset(){
 	timer.querySelector('.miliseconds').innerHTML = '00';
 	showHide(false); 
 
+	clearLapList(lapList);
+
+}
+
+function clearLapList(input){
+	var index;
+
+	for(index = 0; index < input.length; index++){
+		input[index].remove();
+	}
 }
 
 function addLine(number, startTime, endTime){
